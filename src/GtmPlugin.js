@@ -36,7 +36,7 @@ export default class AnalyticsPlugin {
   trackView(screenName, path) {
     if (inBrowser && pluginConfig.enabled) {
       logDebug('Dispatching TrackView', { screenName, path })
-	  logDebug('+++++++++++++Trackview', path);
+
       let dataLayer = (window.dataLayer = window.dataLayer || [])
       dataLayer.push({
         event: 'content-view',

@@ -36,6 +36,48 @@ export const loadScript = function (id) {
 
   doc.body.appendChild(script)
 }
+/**
+ * Return censored path from router
+ */
+export const censorPath = function (route) {
+	const url = new URL(window.location.href);
+	const searchParams = new URLSearchParams(url.search);
+
+	const censoredSearchParams = ['email', 'username', 'token', 'kco'];
+
+	for (const name of censoredSearchParams) {
+		if (searchParams.has(name)) {
+			searchParams.set(name, 'CENSORED');
+		}
+	}
+
+	url.search = searchParams.toString();
+
+	let urlString = url.toString();
+	let path = route.path;
+
+	const censoredParams = {
+		'checkout-complete': ['id'],
+		'order': ['id'],
+		'swishPayment': ['orderId'],
+	}[route.name]; // Plocka ut den vi är på direkt
+
+	if (censoredParams) {
+		for (const name of censoredParams) {
+			if (route.params[name]) {
+				// Censurera parametern både i location och page-värdena
+				urlString = urlString.replace(route.params[name], 'CENSORED');
+				path = path.replace(route.params[name], 'CENSORED');
+			}
+		}
+	}
+
+	if (searchParams.toString()) {
+		path += '?' + searchParams.toString();
+	}
+	return path;
+  }
+
 
 /**
  * Check if GTM script is in the document
