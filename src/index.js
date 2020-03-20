@@ -1,4 +1,4 @@
-import { loadScript } from './utils'
+import { loadScript, logDebug } from './utils'
 import pluginConfig from './config'
 import GtmPlugin from './GtmPlugin'
 
@@ -60,7 +60,9 @@ const initVueRouterGuard = function (Vue, { vueRouter, ignoredViews, trackOnNext
 
     // Dispatch vue event using meta gtm value if defined otherwise fallback to route name
     const name = to.meta.gtm || to.name
-    const baseUrl = vueRouter.options.base || '';
+	const baseUrl = vueRouter.options.base || '';
+
+	logDebug('---------------Fullpath', to);
     if (trackOnNextTick) {
       Vue.nextTick(() => {
         Vue.gtm.trackView(name, `${baseUrl}${to.fullPath}`)
