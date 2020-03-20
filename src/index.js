@@ -1,4 +1,4 @@
-import { loadScript, logDebug } from './utils'
+import { loadScript, logDebug, censorPath } from './utils'
 import pluginConfig from './config'
 import GtmPlugin from './GtmPlugin'
 
