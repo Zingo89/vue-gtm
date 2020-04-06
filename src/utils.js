@@ -43,7 +43,7 @@ export const censorPath = function (route) {
 	const url = new URL(window.location.href);
 	const searchParams = new URLSearchParams(url.search);
 
-	const censoredSearchParams = ['email', 'username', 'token', 'kco'];
+	const censoredSearchParams = ['email', 'username', 'token', 'kco', 'phone'];
 
 	for (const name of censoredSearchParams) {
 		if (searchParams.has(name)) {
