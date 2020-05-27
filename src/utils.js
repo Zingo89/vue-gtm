@@ -39,11 +39,11 @@ export const loadScript = function (id) {
 /**
  * Return censored path from router
  */
-export const censorPath = function (route) {
-	const url = new URL(window.location.href);
+export const censorPath = function (baseUrl, route) {
+	const url = new URL(baseUrl + route.fullPath);
 	const searchParams = new URLSearchParams(url.search);
 
-	const censoredSearchParams = ['email', 'username', 'token', 'kco', 'phone'];
+	const censoredSearchParams = ['email', 'username', 'token', 'kco', 'phone', 'secret'];
 
 	for (const name of censoredSearchParams) {
 		if (searchParams.has(name)) {
