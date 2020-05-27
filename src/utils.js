@@ -42,8 +42,7 @@ export const loadScript = function (id) {
 export const censorPath = function (baseUrl, route) {
 	const url = new URL(baseUrl + route.fullPath);
 	const searchParams = new URLSearchParams(url.search);
-
-	const censoredSearchParams = ['email', 'username', 'token', 'kco', 'phone', 'secret'];
+	const censoredSearchParams = ['email', 'username', 'token', 'kco', 'phone', 'secret', 'name'];
 
 	for (const name of censoredSearchParams) {
 		if (searchParams.has(name)) {
@@ -60,8 +59,19 @@ export const censorPath = function (baseUrl, route) {
 		'checkout-complete': ['id'],
 		'order': ['id'],
 		'swishPayment': ['orderId'],
-	}[route.name]; // Plocka ut den vi är på direkt
+		'member.orders': ['id'],
+		'member.benefits': ['id'],
+		'member.offers': ['id'],
+		'member.wishlists': ['id'],
+		'member.payments': ['id'],
+		'member.profile': ['id'],
+		'member.achievements': ['id'],
+		'member.avatar': ['id'],
+		'member.supply-drop': ['id'],
+		'member.toplist': ['id'],
+		'member.game': ['id'],
 
+	}[route.name]; // Plocka ut den vi är på direkt
 	if (censoredParams) {
 		for (const name of censoredParams) {
 			if (route.params[name]) {
